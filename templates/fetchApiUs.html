@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block customcss %}
+    <link rel="stylesheet" type="text/css" href="{% static 'api/style.css' %}">
+{% endblock customcss %}
+
+
+{% block content %}
+
+    <body class="back">
+
+    {% if user.is_authenticated %}
+
+        <div class="container">
+
+           
+            <h1>News.com</h1>
+            <a href="{% url 'fetchApi' %}" class="btn btn-link" role="button" aria-disabled="true">JAPAN Version?</a>
+                
+                <div>
+                Welcome {{ user }} !                   
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-down-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8.636 12.5a.5.5 0 0 1-.5.5H1.5A1.5 1.5 0 0 1 0 11.5v-10A1.5 1.5 0 0 1 1.5 0h10A1.5 1.5 0 0 1 13 1.5v6.636a.5.5 0 0 1-1 0V1.5a.5.5 0 0 0-.5-.5h-10a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h6.636a.5.5 0 0 1 .5.5z"/>
+                <path fill-rule="evenodd" d="M16 15.5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1 0-1h3.793L6.146 6.854a.5.5 0 1 1 .708-.708L15 14.293V10.5a.5.5 0 0 1 1 0v5z"/>
+                </svg>
+                <a href="{% url 'logout' %}" >Logout</a>
+                </div>
+                <br>
+
+                <form method="post">{% csrf_token %}
+                    <input type="submit" class="btn btn-primary btn-sm" name="category" value="business"></input>
+                    <input type="submit" class="btn btn-secondary btn-sm"  name="category" value="science"></input>
+                    <input type="submit" class="btn btn-secondary btn-sm"  name="category" value="entertainment"></input>
+                    <input type="submit" class="btn btn-secondary btn-sm"  name="category" value="general"></input>
+                    <input type="submit" class="btn btn-secondary btn-sm"  name="category" value="health"></input>
+                    <input type="submit" class="btn btn-secondary btn-sm"  name="category" value="sport"></input>
+                    <input type="submit" class="btn btn-secondary btn-sm"  name="category" value="technology"></input>
+
+                    <input type="text" name="keyword" class="input-form"></input>
+                    <button type="submit" value="search" class="btn btn-success btn-sm">search</button>
+                </form>
+
+
+                <hr>
+
+                {% if searchFlg %}
+
+                    {% for item in result %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                        </svg>
+                        <a href="{{ item.url }}" > {{ item.title }} </a>
+                        <br>
+                        {{ errormsg }}
+
+                    {% endfor %}
+
+                {% else %}
+
+                    {% for article in result %}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                        </svg>
+                        <a href="{{ article.url }}" > {{ article.title }} </a>
+                        <br>
+                    {% endfor %}
+
+        </div>
+
+
+    {% endif %}
+
+    {% else %}
+
+        Sorry. Please<a href="{% url 'login' %}" > Login.</a>
+
+    {% endif %}
+
+    </body>
+
+{% endblock content %}
