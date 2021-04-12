@@ -29,15 +29,15 @@
                 <br>
 
                 <form method="post">{% csrf_token %}
-                    <input type="submit" class="btn btn-primary btn-sm" name="category" value="business"></input>
-                    <input type="submit" class="btn btn-secondary btn-sm"  name="category" value="science"></input>
-                    <input type="submit" class="btn btn-secondary btn-sm"  name="category" value="entertainment"></input>
-                    <input type="submit" class="btn btn-secondary btn-sm"  name="category" value="general"></input>
-                    <input type="submit" class="btn btn-secondary btn-sm"  name="category" value="health"></input>
-                    <input type="submit" class="btn btn-secondary btn-sm"  name="category" value="sport"></input>
-                    <input type="submit" class="btn btn-secondary btn-sm"  name="category" value="technology"></input>
+                    <input type="submit" class="{%if category == 'business'%}btn btn-primary btn-sm {% else %}btn btn-secondary btn-sm{% endif %}" name="category" value="business"></input>
+                    <input type="submit" class="{%if category == 'science'%}btn btn-primary btn-sm {% else %}btn btn-secondary btn-sm{% endif %}"  name="category" value="science"></input>
+                    <input type="submit" class="{%if category == 'entertainment'%}btn btn-primary btn-sm {% else %}btn btn-secondary btn-sm{% endif %}"  name="category" value="entertainment"></input>
+                    <input type="submit" class="{%if category == 'general'%}btn btn-primary btn-sm {% else %}btn btn-secondary btn-sm{% endif %}"  name="category" value="general"></input>
+                    <input type="submit" class="{%if category == 'health'%}btn btn-primary btn-sm {% else %}btn btn-secondary btn-sm{% endif %}"  name="category" value="health"></input>
+                    <input type="submit" class="{%if category == 'sport'%}btn btn-primary btn-sm {% else %}btn btn-secondary btn-sm{% endif %}"  name="category" value="sport"></input>
+                    <input type="submit" class="{%if category == 'technology'%}btn btn-primary btn-sm {% else %}btn btn-secondary btn-sm{% endif %}"  name="category" value="technology"></input>
 
-                    <input type="text" name="keyword" class="input-form"></input>
+                    <input type="text" name="keyword" class="input-form" {% if keyword %}value={{ keyword }} {% endif %}></input>
                     <button type="submit" value="search" class="btn btn-success btn-sm">search</button>
                 </form>
 
@@ -63,6 +63,12 @@
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
                         </svg>
                         <a href="{{ article.url }}" > {{ article.title }} </a>
+                        <!-- 
+                        <form action="/good" method="post">
+                            {% csrf_token %}
+                            <input type="submit" name="good" value="いいね">
+                        </form>
+                         -->
                         <br>
                     {% endfor %}
 

@@ -76,6 +76,7 @@ def fetchApi(request):
         result = data["articles"]
 
         return render(request, 'fetchApi.html', {
+            'category': category,
             'result': result,
             'searchFlg': searchFlg,
             })
@@ -104,6 +105,7 @@ def fetchApi(request):
                 msg = ''
 
         return render(request, 'fetchApi.html', {
+            'keyword': keyword,
             'result': result,
             'searchFlg': searchFlg,
             'errormsg': msg,
@@ -180,6 +182,20 @@ def fetchApiUs(request):
                 })
 
 def getArticles(request):
+        api = "https://newsapi.org/v2/top-headlines?country=jp&pageSize=100&apiKey={key}"
+
+        #リクエスト送信
+        url = api.format(key=apikey)
+        #レスポンスの格納
+        r = requests.get(url)
+        data = r.json()
+
+        articles = data["articles"]
+        return render(request, 'sample.html', {
+            'articles': articles,
+            })
+
+def good(request):
         api = "https://newsapi.org/v2/top-headlines?country=jp&pageSize=100&apiKey={key}"
 
         #リクエスト送信
