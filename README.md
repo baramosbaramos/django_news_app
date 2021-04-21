@@ -1,5 +1,5 @@
 
-使用技術
+●使用技術 <br>
 ・開発言語　Python3 <br>
 ・フレームワーク　Django <br>
 ・データベース　SQLite <br>
